@@ -1,25 +1,31 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Layout from './components/Layout/Layout';
+import Home from './screens/Home/Home';
+import Map from './screens/Map/Map';
+import AddLocation from './screens/AddLocation/AddLocation';
+import Donate from './screens/Donate/Donate';
+import About from './screens/About/About';
+import Contact from './screens/Contact/Contact';
+import NotFound from './screens/NotFound/NotFound';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Router>
+        <Layout>
+          <Switch>
+            <Route path="/" exact component={Home} />
+            <Route path="/map/locations/add" component={AddLocation} />
+            <Route path="/map" component={Map} />
+            <Route path="/about" component={About} />
+            <Route path="/donate" component={Donate} />
+            <Route path="/contact" component={Contact} />
+            <Route component={NotFound} />
+          </Switch>
+        </Layout>
+      </Router>
+    </>
   );
 }
 
