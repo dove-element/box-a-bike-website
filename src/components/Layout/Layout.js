@@ -1,19 +1,34 @@
 import React, { Component } from 'react';
-import { CssBaseline } from '@material-ui/core';
+import { CssBaseline, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import Header from '../Header/Header';
 import AppMenu from '../AppMenu/AppMenu';
 import { drawerWidth } from '../../utilities/constants';
 
-const styles = theme => ({
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing.unit * 3,
-    [theme.breakpoints.up('md')]: {
-      marginLeft: drawerWidth,
+const styles = theme => {
+  return {
+    content: {
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'stretch',
+      height: '100%',
     },
-  },
-});
+    contentMain: {
+      overflowY: 'auto',
+      flexGrow: 1,
+      [theme.breakpoints.up('md')]: {
+        marginLeft: drawerWidth,
+      },
+    },
+    footer: {
+      background: theme.palette.primary.main,
+      color: theme.palette.primary.contrastText,
+      [theme.breakpoints.up('md')]: {
+        marginLeft: drawerWidth,
+      },
+    },
+  };
+};
 
 class Layout extends Component {
   state = {
@@ -30,12 +45,19 @@ class Layout extends Component {
     return (
       <>
         <CssBaseline />
-        <Header onMenuClick={this.handleDrawerToggle} />
         <AppMenu
           mobileOpen={this.state.mobileOpen}
           onMobileOpenToggle={this.handleDrawerToggle}
         />
-        <main className={classes.content}>{children}</main>
+        <div className={classes.content}>
+          <Header onMenuClick={this.handleDrawerToggle} />
+          <main className={classes.contentMain}>{children}</main>
+          <footer className={classes.footer}>
+            <Typography color="inherit" align="center" variant="caption">
+              Copyright &copy; {new Date().getFullYear()} Dove Element Ltd
+            </Typography>
+          </footer>
+        </div>
       </>
     );
   }

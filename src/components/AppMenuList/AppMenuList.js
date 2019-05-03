@@ -20,6 +20,12 @@ import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
   toolbar: theme.mixins.toolbar,
+  menuLists: {
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+  },
 });
 
 const AppMenuList = ({ classes, location: { pathname } }) => {
@@ -31,23 +37,27 @@ const AppMenuList = ({ classes, location: { pathname } }) => {
   );
 
   return (
-    <div>
+    <>
       <Hidden smDown>
         <div className={classes.toolbar} />
       </Hidden>
-      <MenuList>
-        <AppMenuItem to="/" text="Home" icon={<HomeIcon />} />
-        <AppMenuItem to="/map" text="Map" icon={<MapIcon />} />
-        <AppMenuItem
-          to="/map/locations/add"
-          text="Add Location"
-          icon={<AddIcon />}
-        />
-        <AppMenuItem to="/about" text="About" icon={<InfoIcon />} />
-        <AppMenuItem to="/donate" text="Donate" icon={<MoneyIcon />} />
-        <AppMenuItem to="/contact" text="Contact" icon={<MailIcon />} />
-      </MenuList>
-    </div>
+      <div className={classes.menuLists}>
+        <MenuList>
+          <AppMenuItem to="/" text="Home" icon={<HomeIcon />} />
+          <AppMenuItem to="/map" text="Map" icon={<MapIcon />} />
+          <AppMenuItem
+            to="/map/locations/add"
+            text="Add Location"
+            icon={<AddIcon />}
+          />
+        </MenuList>
+        <MenuList>
+          <AppMenuItem to="/about" text="About" icon={<InfoIcon />} />
+          <AppMenuItem to="/donate" text="Donate" icon={<MoneyIcon />} />
+          <AppMenuItem to="/contact" text="Contact" icon={<MailIcon />} />
+        </MenuList>
+      </div>
+    </>
   );
 };
 
