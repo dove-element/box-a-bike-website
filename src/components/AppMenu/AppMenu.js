@@ -1,4 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { compose } from 'recompose';
+import { toggleSidebar } from '../../actions/navigationActions';
 import { Drawer, Hidden } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import AppMenuList from '../AppMenuList/AppMenuList';
@@ -17,17 +21,15 @@ const styles = theme => ({
   toolbar: theme.mixins.toolbar,
 });
 
-const AppMenu = ({ mobileOpen, onMobileOpenToggle, container, classes }) => {
+const AppMenu = ({ isSidebarOpen, toggleSidebar, classes }) => {
   return (
     <nav className={classes.drawer}>
-      {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
       <Hidden mdUp implementation="css">
         <Drawer
-          container={container}
           variant="temporary"
           anchor="left"
-          open={mobileOpen}
-          onClose={onMobileOpenToggle}
+          open={isSidebarOpen}
+          onClose={toggleSidebar}
           classes={{
             paper: classes.drawerPaper,
           }}
@@ -50,4 +52,23 @@ const AppMenu = ({ mobileOpen, onMobileOpenToggle, container, classes }) => {
   );
 };
 
-export default withStyles(styles)(AppMenu);
+AppMenu.propTypes = {
+  toggleSidebar: PropTypes.func.isRequired,
+  isSidebarOpen: PropTypes.bool.isRequired,
+};
+
+function mapStateToProps(state) {
+  return {
+    isSidebarOpen: state.navigation.isSidebarOpen,
+  };
+}
+
+const mapDispatchToProps = { toggleSidebar };
+
+export default compose(
+  withStyles(styles),
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  ),
+)(AppMenu);

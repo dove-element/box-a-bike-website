@@ -1,5 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import configureStore from './store/configureStore';
 import Layout from './components/Layout/Layout';
 import Home from './screens/Home/Home';
 import Map from './screens/Map/Map';
@@ -10,8 +12,9 @@ import Contact from './screens/Contact/Contact';
 import NotFound from './screens/NotFound/NotFound';
 
 function App() {
+  const store = configureStore();
   return (
-    <>
+    <Provider store={store}>
       <Router>
         <Layout>
           <Switch>
@@ -25,7 +28,7 @@ function App() {
           </Switch>
         </Layout>
       </Router>
-    </>
+    </Provider>
   );
 }
 

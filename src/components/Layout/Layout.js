@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { CssBaseline, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import Header from '../Header/Header';
@@ -30,37 +30,22 @@ const styles = theme => {
   };
 };
 
-class Layout extends Component {
-  state = {
-    mobileOpen: false,
-  };
-
-  handleDrawerToggle = () => {
-    this.setState(state => ({ mobileOpen: !state.mobileOpen }));
-  };
-
-  render() {
-    const { classes, children } = this.props;
-
-    return (
-      <>
-        <CssBaseline />
-        <AppMenu
-          mobileOpen={this.state.mobileOpen}
-          onMobileOpenToggle={this.handleDrawerToggle}
-        />
-        <div className={classes.content}>
-          <Header onMenuClick={this.handleDrawerToggle} />
-          <main className={classes.contentMain}>{children}</main>
-          <footer className={classes.footer}>
-            <Typography color="inherit" align="center" variant="caption">
-              Copyright &copy; {new Date().getFullYear()} Dove Element Ltd
-            </Typography>
-          </footer>
-        </div>
-      </>
-    );
-  }
+function Layout({ classes, children }) {
+  return (
+    <>
+      <CssBaseline />
+      <AppMenu />
+      <div className={classes.content}>
+        <Header />
+        <main className={classes.contentMain}>{children}</main>
+        <footer className={classes.footer}>
+          <Typography color="inherit" align="center" variant="caption">
+            Copyright &copy; {new Date().getFullYear()} Dove Element Ltd
+          </Typography>
+        </footer>
+      </div>
+    </>
+  );
 }
 
 export default withStyles(styles)(Layout);
